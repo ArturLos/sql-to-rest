@@ -1,0 +1,21 @@
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN" "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+<tiles-definitions>
+    <definition name="template" template="/WEB-INF/views/template.jsp">
+        <put-attribute name="content" value="/WEB-INF/views/struktura.jsp" />
+    </definition>
+    
+    <definition name="struktura" extends="template"></definition>
+    
+    <definition name="tabele" extends="template">
+        <put-attribute name="content" value="/WEB-INF/views/tabele.jsp"/>
+    </definition>
+    
+    <definition name="dodaj_strukture" extends="template">
+        <put-attribute name="content" value="/WEB-INF/views/dodaj_strukture.jsp"/>
+    </definition>
+    
+    <definition name="dodaj_tabele" extends="template">
+        <put-attribute name="content" value="/WEB-INF/views/dodaj_tabele.jsp"/>
+    </definition>
+    
+</tiles-definitions>
