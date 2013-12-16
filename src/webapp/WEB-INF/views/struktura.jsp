@@ -34,7 +34,7 @@
         <p>Lista wybranych tabel</p>
 
         <ul>
-            <c:forEach var="element" items="${curStr.tabele}">
+            <c:forEach var="element" items="${curStr.tables}">
                 <c:url var="adresTabDel" value="/struktura/${curStr.nazwa}/tabela/${element.nazwa}/del" />
                 <c:url var="adresTabEdit" value="/struktura/${curStr.nazwa}/tabela/${element.nazwa}" />
                 <li><div>
@@ -42,7 +42,7 @@
                             <a href="${adresTabEdit}" title="Edytuj">${element.nazwa}</a>
                             <a href="${adresTabDel}" title="Usuń" style="padding-left: 15px;">X</a></div>
                         <div>elementy:
-                            <c:forEach var="kolumna" items="${element.kolumny}">
+                            <c:forEach var="kolumna" items="${element.columns}">
                                 ${kolumna.nazwa}&nbsp;
                             </c:forEach>
                         </div>

@@ -1,37 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping package="def.pojo">
-  <class name="Struktura" table="struktury">
+  <class name="Structure" table="struktury">
     <id column="id" name="id" type="integer">
       <generator class="identity"/>
     </id>
     <natural-id mutable="false">
-    <property column="nazwa" length="30" name="nazwa" type="string" unique="true"/>
+      <property column="nazwa" length="30" name="nazwa" type="string" unique="true"/>
     </natural-id>
-    
-    <set name="tabele" table="tabele" order-by="nazwa">
-        <key column="id_struktury" ></key>
-        <one-to-many class="Tabela" ></one-to-many>
+    <set name="tables" order-by="nazwa" table="tabele">
+      <key column="id_struktury"/>
+      <one-to-many class="Table"/>
     </set>
   </class>
-  
-  <class name="Tabela" table="tabele">
-      <id column="id" name="id" type="integer">
-          <generator class="identity"/>
-      </id>
-      <many-to-one name="struktura" class="Struktura" column="id_struktury"  not-null="true"/>
-      <property column="nazwa" length="30" name="nazwa" type="string"/>
-      <set name="kolumny" table="kolumny" order-by="nazwa" inverse="true" cascade="all-delete-orphan" >
-          <key column="id_tabeli" not-null="true" on-delete="cascade" />
-          <one-to-many class="Kolumna" />
-      </set>
+  <class name="Table" table="tabele">
+    <id column="id" name="id" type="integer">
+      <generator class="identity"/>
+    </id>
+    <many-to-one class="Structure" column="id_struktury" name="structure" not-null="true"/>
+    <property column="nazwa" length="30" name="nazwa" type="string"/>
+    <set cascade="all-delete-orphan" inverse="true" name="columns" order-by="nazwa" table="kolumny">
+      <key column="id_tabeli" not-null="true" on-delete="cascade"/>
+      <one-to-many class="Column"/>
+    </set>
   </class>
-  
-  <class name="Kolumna" table="kolumny">
-      <id column="id" name="id" type="integer">
-          <generator class="identity" />
-      </id>
-      <many-to-one name="tabela" class="Tabela" column="id_tabeli" not-null="true" />
-      <property name="nazwa" column="nazwa" type="string" length="30"/>
+  <class name="Column" table="kolumny">
+    <id column="id" name="id" type="integer">
+      <generator class="identity"/>
+    </id>
+    <many-to-one class="Table" column="id_tabeli" name="table" not-null="true"/>
+    <property column="nazwa" length="30" name="nazwa" type="string"/>
   </class>
 </hibernate-mapping>

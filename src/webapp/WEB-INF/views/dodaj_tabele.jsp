@@ -5,7 +5,7 @@
 <div><h2>Dodawanie tabeli do struktury</h2></div>
 <script type="text/javascript">
     function zmianaTabeli(newVal){
-        document.location.href = "<c:url value="/struktura/${idStruktura}/dodajTabela/" />"+newVal;
+        document.location.href = "<c:url value="/struktura/${idStructure}/dodajTabela/" />"+newVal;
     }
 </script>
 <form:form modelAttribute="tab">
@@ -15,7 +15,7 @@
 </form:select>
 
 <c:if test="${not(kolumnaList == null)}">
-    <form:select path="kolumny" multiple="true">
+    <form:select path="columns" multiple="true">
         <form:options items="${kolumnaList}" itemLabel="nazwa" itemValue="nazwa"/>
     </form:select>
     <input type="submit" value="Dodaj" />

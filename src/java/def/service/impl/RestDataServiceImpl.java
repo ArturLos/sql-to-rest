@@ -1,6 +1,6 @@
 package def.service.impl;
 
-import def.pojo.Struktura;
+import def.pojo.Structure;
 import def.rest.OutputHelperService;
 import def.rest.XmlOutputHelperService;
 import def.service.RestDataService;
@@ -21,9 +21,9 @@ public class RestDataServiceImpl implements RestDataService {
     private RestDataDAO restDataDAO;
     
     @Override
-    public void loadData(Struktura struktura, Map<String, String> parametry, HttpServletResponse response) throws Exception {
+    public void loadData(Structure struktura, Map<String, String> parametry, HttpServletResponse response) throws Exception {
         XmlOutputHelperService templateHandler = new XmlOutputHelperService(response); // pobierać z kontekstu po nazwie np "templateHandler"
-        templateHandler.setStruktura(struktura);
+        templateHandler.setStructure(struktura);
         templateHandler.pre();
         restDataDAO.loadData(struktura, parametry, templateHandler);
         templateHandler.post();

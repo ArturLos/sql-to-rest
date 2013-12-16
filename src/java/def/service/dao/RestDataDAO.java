@@ -1,8 +1,8 @@
 package def.service.dao;
 
-import def.pojo.Kolumna;
-import def.pojo.Struktura;
-import def.pojo.Tabela;
+import def.pojo.Column;
+import def.pojo.Structure;
+import def.pojo.Table;
 import def.rest.OutputHelperService;
 import java.util.Map;
 import java.util.logging.Logger;
@@ -21,19 +21,19 @@ public class RestDataDAO extends NamedParameterJdbcDaoSupport{
         setDataSource(dataSource);
     }
     
-    public void loadData(Struktura struktura, Map<String, String> parametry, final OutputHelperService template){
+    public void loadData(Structure struktura, Map<String, String> parametry, final OutputHelperService template){
         String query = createQuery(struktura);
         LOG.info(new StringBuilder().append("RestDataDAO query: ").append(query).toString());
         getNamedParameterJdbcTemplate().query(query, parametry, template);
     }
     
-    protected String createQuery(Struktura struktura){
+    protected String createQuery(Structure struktura){
         if(struktura==null) throw new NullPointerException("Struktura nie może być null");
         StringBuilder sb = new StringBuilder();
-        if(struktura.getTabele().size()>0){
-            Tabela tabela = struktura.getTabele().iterator().next();
+        if(struktura.getTables().size()>0){
+            Table tabela = struktura.getTables().iterator().next();
             sb.append("SELECT ");
-            for(Kolumna kolumna : tabela.getKolumny()){
+            for(Column kolumna : tabela.getColumns()){
                 sb.append(kolumna.getNazwa());
                 sb.append(", ");
             }

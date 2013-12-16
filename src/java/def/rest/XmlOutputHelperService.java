@@ -1,8 +1,8 @@
 package def.rest;
 
-import def.pojo.Kolumna;
-import def.pojo.Struktura;
-import def.pojo.Tabela;
+import def.pojo.Column;
+import def.pojo.Structure;
+import def.pojo.Table;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
@@ -21,14 +21,14 @@ public class XmlOutputHelperService implements OutputHelperService{
     //TODO: zamienić po testach spowrotem na protected albo wymyśleć coś innego
     public Writer writer;
     protected HttpServletResponse response;
-    protected Struktura struktura;
+    protected Structure struktura;
 
     //TODO: Zdecydować czy strukturę ustawiać przez konstruktor
-    public Struktura getStruktura() {
+    public Structure getStructure() {
         return struktura;
     }
 
-    public void setStruktura(Struktura struktura) {
+    public void setStructure(Structure struktura) {
         this.struktura = struktura;
     }
     
@@ -71,9 +71,9 @@ public class XmlOutputHelperService implements OutputHelperService{
         try {
             writeLine("<"+struktura.getNazwaElementu()+">");
             {
-                Set<Tabela> tabele = struktura.getTabele();
-                for(Tabela tabela: tabele){
-                    for(Kolumna kolumna : tabela.getKolumny()){
+                Set<Table> tabele = struktura.getTables();
+                for(Table tabela: tabele){
+                    for(Column kolumna : tabela.getColumns()){
                         write("<"+kolumna.getNazwa()+">");
                         write(rs.getString(kolumna.getNazwa()));
                         writeLine("</"+kolumna.getNazwa()+">");

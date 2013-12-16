@@ -1,7 +1,7 @@
 package def.service.dao;
 
-import def.pojo.Kolumna;
-import def.pojo.Tabela;
+import def.pojo.Column;
+import def.pojo.Table;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -24,21 +24,21 @@ public class SourceDbStructureDAO extends NamedParameterJdbcDaoSupport {
         setDataSource(ds);
     }
 
-    public List getTabelaList(){
-        return getNamedParameterJdbcTemplate().query(q_table_list, new HashMap(), new RowMapper<Tabela>() {
+    public List getTableList(){
+        return getNamedParameterJdbcTemplate().query(q_table_list, new HashMap(), new RowMapper<Table>() {
             @Override
-            public Tabela mapRow(ResultSet rs, int i) throws SQLException {
-                return new Tabela(rs.getString(1));
+            public Table mapRow(ResultSet rs, int i) throws SQLException {
+                return new Table(rs.getString(1));
             }
         });
     }
     
-    public List<Kolumna> getKolumnaList(String table_name){
+    public List<Column> getColumnList(String table_name){
         HashMap parametry = new HashMap();
-        return getNamedParameterJdbcTemplate().query(q_table_columns+table_name, parametry, new RowMapper<Kolumna>() {
+        return getNamedParameterJdbcTemplate().query(q_table_columns+table_name, parametry, new RowMapper<Column>() {
             @Override
-            public Kolumna mapRow(ResultSet rs, int i) throws SQLException {
-                return new Kolumna(rs.getString("Field"), rs.getString("Key").equalsIgnoreCase("PRI")? Boolean.TRUE:Boolean.FALSE);
+            public Column mapRow(ResultSet rs, int i) throws SQLException {
+                return new Column(rs.getString("Field"), rs.getString("Key").equalsIgnoreCase("PRI")? Boolean.TRUE:Boolean.FALSE);
             }
         });
     }

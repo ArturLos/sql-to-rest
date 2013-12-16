@@ -1,10 +1,9 @@
 package def.controller;
 
-import def.pojo.Struktura;
+import def.pojo.Structure;
 import def.service.RestDataService;
-import def.service.StrukturaService;
-import def.service.ZrodloDanychService;
-import javax.servlet.ServletRequest;
+import def.service.StructureService;
+import def.service.DataSourceService;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +18,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class RestController {
     
     @Autowired
-    private ZrodloDanychService zrodloDanychService;
+    private DataSourceService dataSourceService;
     
     @Autowired
-    private StrukturaService strukturaService;
+    private StructureService structureService;
     
     @Autowired
     private RestDataService restDataService;
@@ -30,7 +29,7 @@ public class RestController {
     @RequestMapping(value = {"/struktura/{idStruktury}"}, method = RequestMethod.GET)
     public void get(HttpServletRequest request, HttpServletResponse response,
             @PathVariable String idStruktury) throws Exception{
-        Struktura struktura = strukturaService.getStruktura(idStruktury);
+        Structure struktura = structureService.getStructure(idStruktury);
         restDataService.loadData(struktura, null, response);
         response.flushBuffer();
     }
